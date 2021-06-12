@@ -79,6 +79,23 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // 时分秒
+  String formatHHMMSS(int seconds) {
+    int hours = (seconds / 3600).truncate();
+    seconds = (seconds % 3600).truncate();
+    int minutes = (seconds / 60).truncate();
+
+    String hoursStr = (hours).toString().padLeft(2, '0');
+    String minutesStr = (minutes).toString().padLeft(2, '0');
+    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+
+    if (hours == 0) {
+      return "$minutesStr:$secondsStr";
+    }
+
+    return "$hoursStr:$minutesStr:$secondsStr";
+  }
+
   @override
   void initState() {
     super.initState();
@@ -103,10 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '输入倒计时长，点击【开始】，开始倒计时，点击【结束】，停止倒计时: 单位秒',
+              '输入倒计时长，点击【开始】，开始倒计时，点击【结束】，停止倒计时。',
             ),
             Text(
-              '$_counter',
+              '${formatHHMMSS(_counter)}',
               style: Theme.of(context).textTheme.headline4,
             ),
             TextField(
